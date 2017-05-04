@@ -11,8 +11,8 @@ import {
   Text,
   View
 } from 'react-native';
-// import App from './app'
-import App from './js/App';
+import App from './app'
+// import App from './js/App';
 export default class NavTest extends Component {
   render() {
     return (
