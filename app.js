@@ -9,7 +9,7 @@ import {
 	Animated,
 	Easing
 } from 'react-native';
-import { StackNavigator } from 'react-navigation';
+import { StackNavigator, TabNavigator, DrawerNavigator } from 'react-navigation';
 
 import ChatScreen from './ChatScreen'
 import { MainScreenNavigator } from './TabNavigator'
@@ -57,7 +57,6 @@ HomeScreen.navigationOptions = props => {
         onPress={() =>{console.log()}}
       />
     ),
-		cardStyle: { opacity: 0 },
 	}
 }
 
@@ -71,12 +70,12 @@ const MyComponent = () => {
 };
 
 
-const SimpleApp = StackNavigator({
+const SimpleApp = DrawerNavigator({
 	Home: { screen: HomeScreen },
 	Chat: { screen: ChatScreen },
 }, {
 	mode: 'card',
-  headerMode: 'screen',
+  headerMode: 'float',
 	navigationOptions: {
     gesturesEnabled: true,
   },

@@ -11,44 +11,28 @@ import {
   Text,
   View
 } from 'react-native';
-import App from './app'
+
+import { StackNavigator, TabNavigator, DrawerNavigator } from 'react-navigation'
+
+// import App from './app'
+import App from './src/app'
 // import App from './js/App';
+
+import SecondScreen from './src/SecondScreen'
 export default class NavTest extends Component {
   render() {
+    const { navigation } = this.props
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.ios.js
-        </Text>
-        <Text style={styles.instructions}>
-          Press Cmd+R to reload,{'\n'}
-          Cmd+D or shake for dev menu
-        </Text>
-      </View>
+      <App navigation={navigation}/>
     );
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-});
+// const SimpleApp = StackNavigator({
+//   Home: { screen: App },
+//   SecondScreen: { screen: SecondScreen }
+// }, {
+//   headerMode: 'none',
+// })
 
 AppRegistry.registerComponent('NavTest', () => App);
