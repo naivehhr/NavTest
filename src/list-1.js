@@ -16,12 +16,11 @@ import {
 	DrawerItems,
 	NavigationActions
  } from 'react-navigation'
-import H2 from './home-2'
+ 
 class _Index extends Component {
 
 	componentDidMount() {
 		const { navigation } = this.props
-		console.log(navigation);
 	}
 
 	back = () => {
@@ -30,10 +29,8 @@ class _Index extends Component {
 		navigation.goBack(null)
 	}
 
-	go = () => {
-		const { navigation } = this.props
-		const { navigate } = navigation
-		navigate('H2', { user: 'Lucy', uid: 1 })
+	open = () => {
+		this.props.navigation.navigate('DrawerOpen');
 	}
 
 	render() {
@@ -43,8 +40,8 @@ class _Index extends Component {
     		alignItems: 'center',
 				backgroundColor: 'red'}} >
 				<Button 
-					title='Next'
-					onPress={this.go}
+					title='Open'
+					onPress={this.open}
 				/>
 			</View>
 		)
@@ -54,31 +51,39 @@ class _Index extends Component {
 _Index.navigationOptions = props => {
 	const {navigation} = props;
   const {state, setParams} = navigation;
-	if(Platform.OS == 'ios'){
-		return {
-			title: 'H1',
-			headerLeft:(
-				<Button
-					title={ '< Back' }
-					onPress={() =>{ navigation.goBack(null) }}
-				/>
-			),
-		}
-	} else {
-		return {
-			title: 'H1',
-		}
+	return{
+		drawerLabel: 'Notifications',
+    drawerIcon: ({ tintColor }) => (
+      <Image
+        source={require('./img/home.png')}
+        style={[styles.icon, {tintColor: tintColor}]}
+      />
+    ),
 	}
 }
 
-const Index = StackNavigator({
-	H1: { 
-		screen: _Index,
-		path: 'people/:name',
-	},
-	H2: {screen: H2}
-}, {
-	headerMode: 'float',
-})
 
+const Index = DrawerNavigator({
+	L1: { 
+		screen: _Index,
+		path: 'list/:name',
+		title: '123123123'
+	},
+}, {
+	drawerWidth: 200,
+  drawerPosition: 'right',
+	contentComponent: props => <ScrollView><DrawerItems {...props} /></ScrollView>,
+	contentOptions: {
+		activeTintColor: '#e91e63',
+		style: {
+			marginVertical: 0,
+		}
+	}
+})
+const styles = StyleSheet.create({
+  icon: {
+    width: 24,
+    height: 24,
+  },
+});
 export default Index

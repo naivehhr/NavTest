@@ -11,13 +11,14 @@ import {
 	StackNavigator, 
 	TabNavigator, 
 	DrawerNavigator,
-	DrawerItems
+	DrawerItems,
+  NavigationActions
  } from 'react-navigation'
 
 
-import SccondScreen from './SecondScreen'
-import ThreeScreen from './ThreeScreen'
-import Index from './home-1';
+import List from './list'
+import Account from './account'
+import H1 from './home-1';
 class _App extends Component {
 
   static navigationOptions = {
@@ -38,26 +39,45 @@ class _App extends Component {
     console.log('====================================');
   }
 
+  goTo = () => {
+    const { navigation } = this.props
+		const { navigate } = navigation
+    navigate('H1')
+
+    // const navigateAction = NavigationActions.navigate({
+		// 	routeName: 'H1',
+		// 	params: {id: 'huhaoran'},
+		// 	action: NavigationActions.navigate({ routeName: 'H1'})
+		// })
+		// this.props.navigation.dispatch(navigateAction)
+  }
+
   render() {
     const { navigate } = this.props.navigation
     return (
       <View style={styles.container}>
         <Button 
           title='Go to Next'
-          onPress={() => { navigate('Index') }} 
+          onPress={this.goTo} 
         />
         <Button 
           title='Switch to List'
-          onPress={() => { navigate('ScondScreen') }} 
+          onPress={() => { navigate('List') }} 
         />
       </View>
     )
   }
 }
+
+const a = StackNavigator({
+  Home: { screen: _App },
+  H1: { screen: H1 }
+})
+
 const Home = TabNavigator({
   Home: { screen: _App },
-  ScondScreen: { screen: SccondScreen },
-  ThreeScreen: { screen: ThreeScreen },
+  List: { screen: List },
+  Account: { screen: Account },
 }, {
   tabBarPosition: 'bottom',
   swipeEnabled: false,

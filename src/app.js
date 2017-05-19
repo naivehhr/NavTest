@@ -13,17 +13,18 @@ import {
 	DrawerItems
  } from 'react-navigation'
 
- import Home from './Home'
- import SccondScreen from './SecondScreen'
- import ThreeScreen from './ThreeScreen'
-import Index from './home-1';
+import Home from './home'
+import H1 from './home-1';
+import L1 from './list-1';
+import A1 from './account-1';
 
 const App = StackNavigator({
   Home: { screen: Home },
-  ScondScreen: { screen: SccondScreen },
-  ThreeScreen: { screen: ThreeScreen },
-  Index: {screen: Index}
+  H1: { screen: H1 },
+  L1: { screen: L1 },
+  A1: { screen: A1 }
 }, {
+  initialRouteName: 'Home',
   tabBarPosition: 'bottom',
   swipeEnabled: false,
   animationEnabled: false,
@@ -31,7 +32,9 @@ const App = StackNavigator({
   tabBarOptions: {
     activeTintColor: '#e91e63',
   },
-  headerMode: 'none'
+  headerMode: 'none',
 })
 
+
+console.disableYellowBox = true
 export default App

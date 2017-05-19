@@ -7,6 +7,17 @@ import {
   Button,
   Image
 } from 'react-native';
+
+import { 
+	StackNavigator, 
+	TabNavigator, 
+	DrawerNavigator,
+	DrawerItems,
+	NavigationActions
+ } from 'react-navigation'
+
+import A1 from './account-1'
+
 /*const ThreeScreen = () => {
 	return (
 		<View style={styles.container}>
@@ -17,12 +28,36 @@ import {
 	)
 }*/
 
-class ThreeScreen extends Component {
+class Account extends Component {
   componentDidMount() {
     console.log('====================================');
     console.log('ThreeScreen did mount');
     console.log('====================================');
   }
+
+  onPress = () => {
+    const navigateAction = NavigationActions.navigate({
+      routeName: 'A1', //注册在跟容器中
+      params: {name: 'huhaorna'},
+      // 这个什么作用
+      action: NavigationActions.navigate({ routeName: 'L1'})
+    })
+
+    const resetAction = NavigationActions.reset({
+      index: 0,
+      key: null,
+      actions: [
+        NavigationActions.navigate({ routeName: 'Home'})
+      ]
+    })
+
+    // const setParamsAction = NavigationActions.setParams({
+    //   params: { title: 'Hello' },
+    //   key: 'screen-123',
+    // })
+    this.props.navigation.dispatch(resetAction)
+  }
+
   render () {
     const { navigate } = this.props.navigation
     return (
@@ -30,14 +65,15 @@ class ThreeScreen extends Component {
         <Text style={styles.welcome}>
           Welcome to SecoundScreen
         </Text>
+        <Button onPress={this.onPress} title='GO' />
       </View>
     )
   }
 }
 
 
-ThreeScreen.navigationOptions = {
-	title: 'Threen Screen Title',
+Account.navigationOptions = {
+	title: 'Account',
   tabBarLabel: 'Account',
   tabBarIcon: ({ tintColor }) => (
     <Image
@@ -70,4 +106,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ThreeScreen
+export default Account

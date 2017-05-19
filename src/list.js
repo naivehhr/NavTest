@@ -14,23 +14,29 @@ import {
 	DrawerNavigator,
 	DrawerItems
  } from 'react-navigation'
-import ThreeScreen from './ThreeScreen'
 
-class SecondScreen extends Component {
+class List extends Component {
 	componentDidMount() {
+		const { navigation } = this.props
     console.log('====================================');
-    console.log('SecondScreen did mount');
+    console.log('SecondScreen did mount', navigation);
     console.log('====================================');
   }
+
+	go = () => {
+		const { navigation } = this.props
+		const { navigate } = navigation
+		navigate('L1')
+	}
 	render () {
 		const { navigate } = this.props.navigation
 		return (
 			<View style={styles.container}>
 				<Text style={styles.welcome}>
-					Welcome to SecoundScreen
+					List View
 				</Text>
-				<Button onPress={() => navigate('DrawerOpen')}
-					title='open'
+				<Button onPress={this.go}
+					title='Next'
 					/>
 			</View>
 		)
@@ -60,9 +66,9 @@ class SecondScreen extends Component {
 	)
 }*/
 
-SecondScreen.navigationOptions = props => {
+List.navigationOptions = props => {
 	return{
-		title: 'Second Screen Title',
+		title: 'List',
 		tabBarLabel: 'List',
 		tabBarIcon: ({ tintColor }) => (
 			<Image
@@ -72,24 +78,6 @@ SecondScreen.navigationOptions = props => {
 		),
 	}
 }
-
-
-const Drawer = DrawerNavigator({
-  SecondScreen: { screen: SecondScreen },
-}, {
-	drawerWidth: 200,
-  drawerPosition: 'right',
-	contentComponent: props => <ScrollView><DrawerItems {...props} /></ScrollView>,
-	contentOptions: {
-		activeTintColor: '#e91e63',
-		style: {
-			marginVertical: 0,
-		}
-	}
-
-})
-
-
 
 
 const styles = StyleSheet.create({
@@ -115,4 +103,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Drawer
+export default List

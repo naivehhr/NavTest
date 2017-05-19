@@ -6,8 +6,7 @@ import {
   View,
 	Button,
 	ScrollView,
-	Image,
-	Platform
+	Image
 } from 'react-native';
 import { 
 	StackNavigator, 
@@ -16,12 +15,13 @@ import {
 	DrawerItems,
 	NavigationActions
  } from 'react-navigation'
-import H2 from './home-2'
-class _Index extends Component {
+class Home_2 extends Component {
+	static navigationOptions = ({ navigation }) => ({
+    title: `Chat with ${navigation.state.params && navigation.state.params.user + navigation.state.params.uid}`,
+  });
 
 	componentDidMount() {
 		const { navigation } = this.props
-		console.log(navigation);
 	}
 
 	back = () => {
@@ -33,7 +33,7 @@ class _Index extends Component {
 	go = () => {
 		const { navigation } = this.props
 		const { navigate } = navigation
-		navigate('H2', { user: 'Lucy', uid: 1 })
+		navigate('H2', { user: 'Lucy', uid: navigation.state.params.uid + 1 })
 	}
 
 	render() {
@@ -51,34 +51,13 @@ class _Index extends Component {
 	}
 }
 
-_Index.navigationOptions = props => {
-	const {navigation} = props;
-  const {state, setParams} = navigation;
-	if(Platform.OS == 'ios'){
-		return {
-			title: 'H1',
-			headerLeft:(
-				<Button
-					title={ '< Back' }
-					onPress={() =>{ navigation.goBack(null) }}
-				/>
-			),
-		}
-	} else {
-		return {
-			title: 'H1',
-		}
-	}
-}
+// _Index.navigationOptions = props => {
+// 	const {navigation} = props;
+//   const {state, setParams} = navigation;
+// 	return {
+// 		title: 'home-2',
+// 	}
+// }
 
-const Index = StackNavigator({
-	H1: { 
-		screen: _Index,
-		path: 'people/:name',
-	},
-	H2: {screen: H2}
-}, {
-	headerMode: 'float',
-})
 
-export default Index
+export default Home_2
