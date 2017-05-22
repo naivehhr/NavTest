@@ -4,7 +4,8 @@ import {
   StyleSheet,
   Text,
   View,
-  Button
+  Button,
+  Platform
 } from 'react-native';
 import { 
 	StackNavigator, 
@@ -20,7 +21,10 @@ import A1 from './account-1';
 
 const App = StackNavigator({
   Home: { screen: Home },
-  H1: { screen: H1 },
+  H1: { 
+    screen: H1,
+    path: 'chat/:user',
+   },
   L1: { screen: L1 },
   A1: { screen: A1 }
 }, {
@@ -37,4 +41,7 @@ const App = StackNavigator({
 
 
 console.disableYellowBox = true
-export default App
+const prefix = Platform.OS == 'android' ? 'mychat://mychat/' : 'mychat://';
+const MainApp = () => <App uriPrefix={prefix} />;
+
+export default MainApp
