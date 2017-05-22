@@ -15,8 +15,9 @@ import {
 import { StackNavigator, TabNavigator, DrawerNavigator } from 'react-navigation'
 
 // import App from './app'
-import App from './src/app'
+// import App from './src/app'
 // import App from './js/App';
+import App from './src/MyNavigator';
 
 export default class NavTest extends Component {
   render() {
