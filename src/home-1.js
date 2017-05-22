@@ -7,7 +7,9 @@ import {
 	Button,
 	ScrollView,
 	Image,
-	Platform
+	Platform,
+	Animated,
+	Easing
 } from 'react-native';
 import { 
 	StackNavigator, 
@@ -46,6 +48,9 @@ class _Index extends Component {
 					title='Next'
 					onPress={this.go}
 				/>
+				<Image 
+				style={{width: 100, height: 100}}
+        source={require('./img/home.png')}/>
 			</View>
 		)
 	}
@@ -79,6 +84,41 @@ const Index = StackNavigator({
 	H2: {screen: H2}
 }, {
 	headerMode: 'float',
+	transitionConfig: () => ({
+    transitionSpec: {
+      duration: 250,
+      easing: Easing.linear,
+      timing: Animated.timing,
+    },
+    screenInterpolator: sceneProps => {
+      const { layout, position, scene } = sceneProps
+			// console.log('====================================');
+			// console.log(sceneProps);
+			// console.log('====================================');
+      const { index } = scene
+
+      const height = layout.initHeight
+			const width = layout.initWidth
+      const translateY = position.interpolate({
+        inputRange: [index - 1, index, index + 1],
+        outputRange: [height, 0, 0],
+      })
+			const translateX = position.interpolate({
+        inputRange: [index - 1, index, index + 1],
+        outputRange: [width, 0, 0],
+      })
+			
+      const opacity = position.interpolate({
+        inputRange: [index - 1, index - 0.99, index],
+        outputRange: [0, 0.5, 1],
+      })
+
+      return { opacity, transform: [] }
+    },
+  }),
+	onTransitionStart: () => {
+		console.log('123')
+	}
 })
 
 export default Index

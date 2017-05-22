@@ -39,6 +39,13 @@ class _App extends Component {
     console.log('====================================');
   }
 
+  componentWillUnmount () {
+    console.log('====================================');
+    console.log('Home will unmount');
+    console.log('====================================');
+  }
+  
+
   goTo = () => {
     const { navigation } = this.props
 		const { navigate } = navigation

@@ -41,7 +41,7 @@ class Home_2 extends Component {
 			<View style={{  flex: 1,
     		justifyContent: 'center',
     		alignItems: 'center',
-				backgroundColor: 'red'}} >
+				backgroundColor: 'yellow'}} >
 				<Button 
 					title='Next'
 					onPress={this.go}
