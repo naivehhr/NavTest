@@ -72,7 +72,6 @@ const Index = DrawerNavigator({
 }, {
 	drawerWidth: 200,
   drawerPosition: 'right',
-	contentComponent: props => <ScrollView><DrawerItems {...props} /></ScrollView>,
 	contentOptions: {
 		activeTintColor: '#e91e63',
 		style: {

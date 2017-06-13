@@ -44,4 +44,4 @@ console.disableYellowBox = true
 const prefix = Platform.OS == 'android' ? 'mychat://mychat/' : 'mychat://';
 const MainApp = () => <App uriPrefix={prefix} />;
 
-export default MainApp
+export default Home

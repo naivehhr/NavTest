@@ -5,7 +5,9 @@ import {
   Text,
   View,
   Button,
-  Image
+  Image,
+  NativeModules,
+  Dimensions
 } from 'react-native';
 import { 
 	StackNavigator, 
@@ -15,27 +17,28 @@ import {
   NavigationActions
  } from 'react-navigation'
 
-
+const {height, width} = Dimensions.get('window');
 import List from './list'
 import Account from './account'
 import H1 from './home-1';
+
+import RefreshFlatList, { RefreshState, ViewType } from 'react-native-refreshflatlist'
 class _App extends Component {
 
-  static navigationOptions = {
-    tabBarVisible: true,
-    title: 'Home Screen',
-    tabBarLabel: 'Home',
-    tabBarIcon: ({ tintColor }) => (
-      <Image
-        source={require('./img/home.png')}
-        style={[styles.icon, {tintColor: tintColor}]}
-      />
-    ),
-  }
+  // static navigationOptions = {
+  //   tabBarVisible: true,
+  //   title: 'Home Screen',
+  //   tabBarLabel: 'Home',
+  //   tabBarIcon: ({ tintColor }) => (
+  //     <Image
+  //       source={require('./img/home.png')}
+  //       style={[styles.icon, {tintColor: tintColor}]}
+  //     />
+  //   ),
+  // }
 
   componentDidMount() {
     console.log('====================================');
-    console.log('Home did mount');
     console.log('====================================');
   }
 
@@ -58,18 +61,23 @@ class _App extends Component {
 		// })
 		// this.props.navigation.dispatch(navigateAction)
   }
-
+_renderItem = ({item}) => {
+    return (
+      <View style={{width: width, height: 100}} >
+        <Text>{'我是自定义的' + item} </Text>
+      </View>
+    )
+  }
   render() {
-    const { navigate } = this.props.navigation
+    
+    console.log('====================================');
+    console.log('====================================');
     return (
       <View style={styles.container}>
-        <Button 
-          title='Go to Next'
-          onPress={this.goTo} 
-        />
-        <Button 
-          title='Switch to List'
-          onPress={() => { navigate('List') }} 
+        <RefreshFlatList
+          data={[1,2,3]}
+          renderItem={this._renderItem}
+          viewType={'ListView'}
         />
       </View>
     )
@@ -108,4 +116,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Home
+export default _App

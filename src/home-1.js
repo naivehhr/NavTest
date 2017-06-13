@@ -38,6 +38,7 @@ class _Index extends Component {
 		navigate('H2', { user: 'Lucy', uid: 1 })
 	}
 
+
 	render() {
 		return(
 			<View style={{  flex: 1,
@@ -48,6 +49,7 @@ class _Index extends Component {
 					title='Next'
 					onPress={this.go}
 				/>
+
 				<Image 
 				style={{width: 100, height: 100}}
         source={require('./img/home.png')}/>
