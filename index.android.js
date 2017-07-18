@@ -14,6 +14,7 @@ import {
 // import App from './app'
 import App from './src/app'
 // import App from './js/App';
+import TabTest from './src/TabTest'
 export default class NavTest extends Component {
   render() {
     return (
@@ -52,4 +53,4 @@ const styles = StyleSheet.create({
   },
 });
 
-AppRegistry.registerComponent('NavTest', () => App);
+AppRegistry.registerComponent('NavTest', () => TabTest);

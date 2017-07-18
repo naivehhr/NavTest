@@ -21,7 +21,7 @@ const {height, width} = Dimensions.get('window');
 import List from './list'
 import Account from './account'
 import H1 from './home-1';
-
+import Tav from './tab'
 import RefreshFlatList, { RefreshState, ViewType } from 'react-native-refreshflatlist'
 class _App extends Component {
 
@@ -52,8 +52,8 @@ class _App extends Component {
   goTo = () => {
     const { navigation } = this.props
 		const { navigate } = navigation
-    navigate('H1')
-
+    navigate('L1')
+    console.log('123')
     // const navigateAction = NavigationActions.navigate({
 		// 	routeName: 'H1',
 		// 	params: {id: 'huhaoran'},
@@ -61,7 +61,7 @@ class _App extends Component {
 		// })
 		// this.props.navigation.dispatch(navigateAction)
   }
-_renderItem = ({item}) => {
+  _renderItem = ({item}) => {
     return (
       <View style={{width: width, height: 100}} >
         <Text>{'我是自定义的' + item} </Text>
@@ -69,34 +69,27 @@ _renderItem = ({item}) => {
     )
   }
   render() {
-    
     console.log('====================================');
+    console.log(this.props)
     console.log('====================================');
     return (
       <View style={styles.container}>
-        <RefreshFlatList
-          data={[1,2,3]}
-          renderItem={this._renderItem}
-          viewType={'ListView'}
+        <Button 
+          onPress={this.goTo}
+          title='go'
         />
       </View>
     )
   }
 }
-
-const a = StackNavigator({
-  Home: { screen: _App },
-  H1: { screen: H1 }
-})
-
 const Home = TabNavigator({
-  Home: { screen: _App },
+  Home: { screen: Tav },
   List: { screen: List },
   Account: { screen: Account },
 }, {
   tabBarPosition: 'bottom',
   swipeEnabled: false,
-  animationEnabled: false,
+  animationEnabled: true,
   lazy: true,
   tabBarOptions: {
     activeTintColor: '#e91e63',
@@ -116,4 +109,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default _App
+export default Home
