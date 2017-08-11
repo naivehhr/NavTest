@@ -12,12 +12,9 @@ class PullScrollViewTest extends Component {
 	}
 	componentDidMount() {
 		setTimeout(()=> {
-				Animated.timing(                            // 随时间变化而执行的动画类型
-					this.state.fadeAnim,                      // 动画中的变量值
-					{
-						toValue: 300,                             // 透明度最终变为1，即完全不透明
-					}
-				).start();    
+			Animated.spring(this.state.fadeAnim, {
+				toValue: 100,
+			}).start();
 		},1000)
 	}
 	onLayout = (event) =>{
@@ -30,25 +27,25 @@ class PullScrollViewTest extends Component {
 	}
 
 	render() {
+		const { fadeAnim } = this.state
 		return (
 			<Animated.View 
-				ref={ scrollView => { this._scrollView = scrollView }}
 				style={{flex: 1}}
-				onTouchStart={() => console.log('onTouchStart')}
-
+				ref={ wrapperView => { this._wrapperView = wrapperView }}
 				>
-				<View style={{height: 300, backgroundColor: 'yellow'}} >
+				<View style={{height: 200, backgroundColor: 'yellow'}} >
 					<Text>PullScrollViewTest</Text>
 				</View>
-				<View style={{flex: 1}} onLayout={this.onLayout}>
+				<Animated.View style={{flex: 1, marginTop: fadeAnim}} onLayout={this.onLayout}>
 					<ScrollableTabView
-					style={{marginTop: 20, }}
+					style={{marginTop: 20, flex: 1}}
 					renderTabBar={() => <DefaultTabBar />}
 					>
 						<A tabLabel='Tab #1'>My</A>
+						<A tabLabel='Tab #2'>My</A>
 					</ScrollableTabView>
-				</View>
-			</Animated.View>
+				</Animated.View>
+			</Animated.View >
 		);
 	}
 }
@@ -62,7 +59,6 @@ class A extends Component {
 		}
 	}
 	renderRow = (rowData) => {
-		console.log('render')
 		return (
 			<View style={{height: 100, backgroundColor: 'white'}} >
 				<Text>{rowData}</Text>
