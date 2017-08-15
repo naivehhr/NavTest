@@ -15,6 +15,8 @@ import {
 import App from './src/app'
 // import App from './js/App';
 import TabTest from './src/TabTest'
+import PullScrollViewTest from './PullScrollViewTest'
+
 export default class NavTest extends Component {
   render() {
     return (
@@ -53,4 +55,4 @@ const styles = StyleSheet.create({
   },
 });
 
-AppRegistry.registerComponent('NavTest', () => TabTest);
+AppRegistry.registerComponent('NavTest', () => PullScrollViewTest);
