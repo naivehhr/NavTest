@@ -24,7 +24,13 @@ import H1 from './home-1';
 import Tav from './tab'
 import RefreshFlatList, { RefreshState, ViewType } from 'react-native-refreshflatlist'
 class _App extends Component {
-
+  static navigationOptions = ({ navigation }) => {
+    const {state, setParams} = navigation;
+    const _title = state.params? state.params.customerTitle: 'Default'
+    return {
+      title: _title
+    };
+  };
   // static navigationOptions = {
   //   tabBarVisible: true,
   //   title: 'Home Screen',
@@ -38,8 +44,7 @@ class _App extends Component {
   // }
 
   componentDidMount() {
-    console.log('====================================');
-    console.log('====================================');
+    this.props.navigation.setParams({customerTitle: 'CustomerTitle'})
   }
 
   componentWillUnmount () {
@@ -69,9 +74,9 @@ class _App extends Component {
     )
   }
   render() {
-    console.log('====================================');
-    console.log(this.props)
-    console.log('====================================');
+    // console.log('====================================');
+    // console.log(this.props)
+    // console.log('====================================');
     return (
       <View style={styles.container}>
         <Button 
@@ -82,10 +87,10 @@ class _App extends Component {
     )
   }
 }
-const Home = TabNavigator({
-  Home: { screen: Tav },
-  List: { screen: List },
-  Account: { screen: Account },
+const Home = StackNavigator({
+  Home: { screen: _App },
+  // List: { screen: List },
+  // Account: { screen: Account },
 }, {
   tabBarPosition: 'bottom',
   swipeEnabled: false,

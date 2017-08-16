@@ -15,9 +15,9 @@ import {
 import { StackNavigator, TabNavigator, DrawerNavigator } from 'react-navigation'
 
 // import App from './app'
-import App from './src/app'
-import TabTest from './src/TabTest'
-import Test from './Test'
+// import App from './src/app'
+// import TabTest from './src/TabTest'
+// import Test from './Test'
 import PullScrollViewTest from './PullScrollViewTest'
 // import App from './js/App';
 // import App from './src/MyNavigator';

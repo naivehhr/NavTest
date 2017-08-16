@@ -22,6 +22,7 @@ class PullScrollViewTest extends Component {
 		this.mo = true
 		this.y = 200
 		this.scrollEnable = false
+		this.beforePosition = 0
 	}
 	componentDidMount() {
 		// setTimeout(()=> {
@@ -41,12 +42,12 @@ class PullScrollViewTest extends Component {
 				console.log('上部')
       },
       onPanResponderMove: (event, gestureState) => {
-				console.log('sssss', gestureState.dy)
-				let dy = gestureState.dy
-				if(dy >= 0 && this.y >= 200) {
-					return
-				}
-				this.state.fadeAnim.setValue(dy)
+				// console.log('sssss', gestureState.dy)
+				// let dy = gestureState.dy
+				// if(dy >= 0 && this.y >= 200) {
+				// 	return
+				// }
+				// this.state.fadeAnim.setValue(dy)
       },
       onPanResponderRelease: (event, gestureState) => {
       }
@@ -79,15 +80,20 @@ class PullScrollViewTest extends Component {
       onPanResponderMove: (event, gestureState) => {
 				let dy = gestureState.dy
 				console.log('dy', dy)
-				if(dy < -180) {
+				// console.log('currentPosition', this.currentPosition)
+				// 这个位置啊，不在状态，等会在搞。。。。
+				let newy = this.beforePosition + dy
+				console.log('newy', newy)
+				if(newy  < -180) { // 控制顶部
 					// 这个冬天设置是否可以滑动啊
-					this._list1.setNativeProps({
-						opacity: 0.5,
-						scrollEnabled: true
-					})
+					// this._list1.setNativeProps({
+					// 	scrollEnabled: true
+					// })
 					return
 				}
-				this.state.pan.setValue({x: 0, y: dy});
+				this.state.pan.setValue({x: 0, y: newy });
+				this.beforePosition = newy
+				
       },
       onPanResponderRelease: (event, gestureState) => {
       }
@@ -147,14 +153,8 @@ class PullScrollViewTest extends Component {
 							style={{flex: 1}}
 							dataSource={this.state.dataSource}
 							renderRow={this.renderRow}
-							onTouchMove={(e) => console.log('onTouchMove', e.nativeEvent.target)}
+							
 							scrollEnabled={false}
-						/>
-						<ListView
-							tabLabel='Tab #2'
-							style={{flex: 1}}
-							dataSource={this.state.dataSource}
-							renderRow={this.renderRow}
 						/>
 					</ScrollableTabView>
 				</Animated.View>
