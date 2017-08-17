@@ -22,7 +22,8 @@ class PullScrollViewTest extends Component {
 		this.mo = true
 		this.y = 200
 		this.scrollEnable = false
-		this.beforePosition = 0
+		this.beforePosition = 0 // 上一个Y坐标
+		this.beforeY = 0 // 计算差值Y 
 	}
 	componentDidMount() {
 		// setTimeout(()=> {
@@ -75,34 +76,34 @@ class PullScrollViewTest extends Component {
 			onStartShouldSetPanResponderCapture: (evt, gestureState) => true,
 			onMoveShouldSetPanResponder: (evt, gestureState) => true,
       onPanResponderGrant: (event, gestureState) => {
-				console.log('列表')
       },
       onPanResponderMove: (event, gestureState) => {
 				let dy = gestureState.dy
 				console.log('dy', dy)
 				// console.log('currentPosition', this.currentPosition)
-				// 这个位置啊，不在状态，等会在搞。。。。
-				let newy = this.beforePosition + dy
-				console.log('newy', newy)
-				if(newy  < -180) { // 控制顶部
-					// 这个冬天设置是否可以滑动啊
-					// this._list1.setNativeProps({
-					// 	scrollEnabled: true
-					// })
-					return
-				}
-				this.state.pan.setValue({x: 0, y: newy });
-				this.beforePosition = newy
 				
+			
+				// if(dy  < -180) { // 控制顶部
+				// 	this._list1.setNativeProps({
+				// 		scrollEnabled: true
+				// 	})
+				// 	return
+				// }
+				// 要判断滑动方向： 1、持续滑动的方向2、再次滑动的方向
+				// 如果计算正确中间量 start和end则不需要修正位置的
+				this.state.pan.setValue({x: 0, y: dy });
+				this.beforeY = dy
       },
       onPanResponderRelease: (event, gestureState) => {
+				let dy = gestureState.dy
+				console.log('dyasdfs', dy)
+				this.state.pan.setValue({x: 0, y: dy });
       }
     })
   }
 
 	onLayout = (event) =>{
 		// console.log(event.nativeEvent.layout)
-		this.y = event.nativeEvent.layout.y
 	}
 	onScroll = (e) => {
 		// console.log(e.nativeEvent.contentOffset.y)

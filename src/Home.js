@@ -14,7 +14,8 @@ import {
 	TabNavigator, 
 	DrawerNavigator,
 	DrawerItems,
-  NavigationActions
+  NavigationActions,
+  addNavigationHelpers
  } from 'react-navigation'
 
 const {height, width} = Dimensions.get('window');
@@ -26,11 +27,12 @@ import RefreshFlatList, { RefreshState, ViewType } from 'react-native-refreshfla
 class _App extends Component {
   static navigationOptions = ({ navigation }) => {
     const {state, setParams} = navigation;
-    const _title = state.params? state.params.customerTitle: 'Default'
+    const _title = state.params? state.params.customerTitle: '1'
     return {
       title: _title
     };
   };
+
   // static navigationOptions = {
   //   tabBarVisible: true,
   //   title: 'Home Screen',
@@ -44,13 +46,14 @@ class _App extends Component {
   // }
 
   componentDidMount() {
-    this.props.navigation.setParams({customerTitle: 'CustomerTitle'})
+    // this.props.navigation.setParams({customerTitle: 'CustomerTitle'})
+    // console.log('111', this.props)
   }
 
   componentWillUnmount () {
-    console.log('====================================');
-    console.log('Home will unmount');
-    console.log('====================================');
+    // console.log('====================================');
+    // console.log('Home will unmount');
+    // console.log('====================================');
   }
   
 
@@ -73,15 +76,58 @@ class _App extends Component {
       </View>
     )
   }
+
+  goBack = () => {
+    const { goBack, state } = this.props.navigation;
+    // let k = state.params._key
+    goBack('Home1')
+    // goBack({ routeName: 'Home' });
+    // const navigateAction = NavigationActions.navigate({
+    //   routeName: 'Home',
+    //   params: {},
+    //   // navigate can have a nested navigate action that will be run inside the child router
+    //   action: NavigationActions.navigate({ routeName: 'Home'})
+    // })
+    // this.props.navigation.dispatch(navigateAction)
+
+    // const backAction = NavigationActions.back({
+    //   key: state.key
+    // })
+    // this.props.navigation.dispatch(backAction)
+
+    // const resetAction = NavigationActions.reset({
+    //   index: 2,
+    //   actions: [
+    //     NavigationActions.navigate({ routeName: 'Home'}),
+    //     NavigationActions.navigate({ routeName: 'Home1'}),
+    //     NavigationActions.navigate({ routeName: 'Home11'}),
+    //     NavigationActions.navigate({ routeName: 'Home111'})
+    //   ]
+    // })
+    // this.props.navigation.dispatch(resetAction)
+
+
+    const backAction = NavigationActions.back({
+      key: 'Home',
+      // params: { callback(this.accesstoken) },
+    });
+  }
   render() {
     // console.log('====================================');
     // console.log(this.props)
     // console.log('====================================');
+    const { navigation } = this.props
+    const {state, setParams, goBack} = navigation;
+    const _title = state.params? state.params.customerTitle: '1'
     return (
       <View style={styles.container}>
         <Button 
-          onPress={this.goTo}
+          onPress={() => this.props.navigation.navigate('Home'+_title, {customerTitle: _title + 1, _key: state.key})}
           title='go'
+        />
+        <Button 
+          onPress={this.goBack}
+          title='back'
         />
       </View>
     )
@@ -89,16 +135,12 @@ class _App extends Component {
 }
 const Home = StackNavigator({
   Home: { screen: _App },
+  Home1: { screen: _App },
+  Home11: { screen: _App },
+  Home111: { screen: _App },
+
   // List: { screen: List },
   // Account: { screen: Account },
-}, {
-  tabBarPosition: 'bottom',
-  swipeEnabled: false,
-  animationEnabled: true,
-  lazy: true,
-  tabBarOptions: {
-    activeTintColor: '#e91e63',
-  },
 })
 
 const styles = StyleSheet.create({
